@@ -6,51 +6,37 @@ document.getElementById('button2').addEventListener('click', loadREST);
 //load txt
 function loadText() {
     fetch('data.txt')
-        .then(function (response) {
-            return response.text();
-        })
-        .then(function (data) {
-            console.log(data);
-            document.getElementById('result').innerHTML = data;
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+        .then( response => response.text())
+        .then( data => document.getElementById('result').innerHTML = data)
+        .catch( error => console.log(error));
 }
 
 
 //load json
 function loadJSON() {
     fetch('employees.json')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
+        .then(response => response.json())
+        .then(data => {
             let html = '';
-            data.forEach(function (employee) {
+            data.forEach(employee => {
                 html += `
                 <li>${employee.name} - ${employee.job}</li>`;
             });
             document.getElementById('result').innerHTML = html;
         })
 }
-
 //load rest
 
 function loadREST() {
     fetch('https://picsum.photos/list')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (images) {
+        .then( response => response.json())
+        .then(images => {
             let html = '';
-            images.forEach(function (image) {
+            images.forEach(image => {
                 html += `
                 <li><a target="_blank" href="${image.post_url}">Viev image   </a>${image.author}</li>`;
             });
             document.getElementById('result').innerHTML = html;
         })
-        .catch(function (error) {
-            console.log(error);
-        })
+        .catch( error => console.log(error))
 }
