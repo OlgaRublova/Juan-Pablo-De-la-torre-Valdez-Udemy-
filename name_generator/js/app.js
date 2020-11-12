@@ -28,24 +28,45 @@ function loadNames(e) {
         url += `?region=${amount}&`;
     }
 
-    //ajax call
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onload = function () {
-        if (this.status === 200) {
-            const names = JSON.parse(this.responseText);
-    //insert into html
+    // //ajax call
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('GET', url, true);
+    // xhr.onload = function () {
+    //     if (this.status === 200) {
+    //         const names = JSON.parse(this.responseText);
+    // //insert into html
+    //         let html = '<h2>Generated Names</h2>';
+    //         html += '<ul class="list">';
+    //         names.forEach(function (name) {
+    //             html += `
+    //             <li>${name.name}</li>
+    //             `;
+    //         })
+    //         html += '</ul';
+    //         document.querySelector('#result').innerHTML = html;
+    //     }
+    // }
+    // xhr.send();
+
+    // Fetch API
+    fetch(url)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(names){
             let html = '<h2>Generated Names</h2>';
             html += '<ul class="list">';
-            names.forEach(function (name) {
+            names.forEach(function(name) {
                 html += `
-                <li>${name.name}</li>
-                `;
-            })
-            html += '</ul';
+                         <li>${name.name}</li>
+                    `;
+            });
+            html += '</ul>';
+
             document.querySelector('#result').innerHTML = html;
-        }
-    }
-    xhr.send();
+        })
+        .catch(function(error){
+            console.log(error);
+        })
 }
 
